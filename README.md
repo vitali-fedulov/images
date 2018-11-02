@@ -42,8 +42,8 @@ func main() {
 
 [Detailed explanation with illustrations](https://www.similar.pictures/algorithm-for-perceptual-image-comparison.html).
 
-Summary: In the algorithm images are resized to small squares of fixed size. Large number
-of masks representing several sample pixels are run against the resized images
-to calculate average color values (partial sums). Then the sums are compared to
+Summary: In the algorithm images are resized to small squares of fixed size.
+A number of masks representing several sample pixels are run against the resized
+images to calculate average color values. Then the values are compared to
 give the similarity verdict. Also image proportions are used to avoid matching
 images of distinct shape.
