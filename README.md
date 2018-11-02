@@ -4,7 +4,7 @@
 
 The library compares images by perceptual similarity to find near duplicates and
 resized images. To get an idea how the algorithm works try a JavaScript implementation for
-[similar image clustering](https://www.similar.pictures).
+[similar image search](https://www.similar.pictures).
 
 `Similar` function gives a verdict whether 2 images are similar or not.
 
