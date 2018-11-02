@@ -1,4 +1,4 @@
-# Image similarity comparison in Go
+# Comparing images in Go
 
 <img align="right" style="margin-left:18px" src="logo.gif">
 
