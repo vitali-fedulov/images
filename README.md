@@ -11,7 +11,7 @@ resized images. To get an idea how the algorithm works try a JavaScript implemen
 The library also contains wrapper functions to open/save images (`open.go`,
 `save.go`) and basic image resampling/resizing (`resample.go`).
 
-## Example of image comparison (2 photos)
+## Example of comparing 2 photos
 ```
 package main
 
