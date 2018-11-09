@@ -17,20 +17,29 @@ package main
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/vitali-fedulov/images"
 )
 
 func main() {
+	
+	// Open and decode photos.
 	imgA, err := images.Open("photoA.jpg")
+	if err != nil {
+		panic(err)
+	}
 	imgB, err := images.Open("photoB.jpg")
 	if err != nil {
-		log.Println(err)
+		panic(err)
 	}
+	
+	// Define masks.
 	masks := images.Masks()
+	
+	// Calculate hashes.
 	hA, imgSizeA := images.Hash(imgA, masks)
 	hB, imgSizeB := images.Hash(imgB, masks)
+	
+	// Image comparison.
 	if images.Similar(hA, hB, imgSizeA, imgSizeB) {
 		fmt.Println("Images are similar.")
 	} else {
