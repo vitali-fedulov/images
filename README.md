@@ -12,7 +12,7 @@ The library also contains wrapper functions to open/save images (`open.go`,
 `save.go`) and basic image resampling/resizing (`resample.go`).
 
 ## Example of comparing 2 photos
-```
+```go
 package main
 
 import (
