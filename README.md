@@ -5,12 +5,11 @@
 The library compares images by perceptual similarity to find near duplicates and
 resized images. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
 
-`Similar` function gives a verdict whether 2 images are similar or not.
-
-The library also contains wrapper functions to open/save images (`open.go`,
-`save.go`) and basic image resampling/resizing (`resample.go`).
+`Similar` function gives a verdict whether 2 images are similar or not. The library also contains wrapper functions to open/save images and basic image resampling/resizing.
 
 Demo: [similar image search](https://www.similar.pictures) (JavaScript implementation).
+
+Documentation: [godoc](https://godoc.org/github.com/vitali-fedulov/images).
 
 ## Example of comparing 2 photos
 ```go
