@@ -6,7 +6,6 @@ package images
 import (
 	"image"
 	"math"
-	"math/rand"
 )
 
 const (
@@ -14,13 +13,12 @@ const (
 
 	// Side dimension of a mask.
 	maskSize = 24
-	// Number of white pixels in the mask surrounding a white seed pixel.
-	numAggregationPixels = 4
 	// Side dimension (in pixels) of a downsample square to reasonably well
 	// approximate color area of a full size image.
 	downsampleSize = 12
-	// Cutoff value for color distance.
-	distanceThreshold = 50
+	// Cutoff values for color distance.
+	distanceThreshold  = 50
+	totalDistanceCoeff = 2
 	// Cosine similarity squared.
 	cosineSimilarity2 = 0.95
 
@@ -37,35 +35,22 @@ const (
 // average color calculation. In the function output a mask is a map with keys
 // corresponding to white pixel coordinates only, because black pixels are
 // redundant.
+// This particular implementation creates regular-shaped 3x3 masks (thus
+// de-facto a median filter is applied to the resampled image).
 func Masks() []map[image.Point]bool {
 	masks := make([]map[image.Point]bool, 0)
 	for x := 1; x < maskSize-1; x++ {
 		for y := 1; y < maskSize-1; y++ {
-			alreadyAddedPixels := make(map[image.Point]bool)
-			// Aggregation seed pixel.
-			alreadyAddedPixels[image.Point{x, y}] = true
-			// Pixels randomly aggregating around the seed pixel.
-			for len(alreadyAddedPixels) < numAggregationPixels+1 {
-				// Aggregation points are placed within 3x3 pixel area.
-				dx := rand.Intn(3) - 1
-				dy := rand.Intn(3) - 1
-				if outOfBound(x+dx, y+dy) || (dx == 0 && dy == 0) {
-					continue
+			maskPixels := make(map[image.Point]bool)
+			for dx := -1; dx < 2; dx++ {
+				for dy := -1; dy < 2; dy++ {
+					maskPixels[image.Point{x + dx, y + dy}] = true
 				}
-				alreadyAddedPixels[image.Point{x + dx, y + dy}] = true
 			}
-			masks = append(masks, alreadyAddedPixels)
+			masks = append(masks, maskPixels)
 		}
 	}
 	return masks
-}
-
-// Function to check if a pixel coordinates are out of the mask boundaries.
-func outOfBound(x, y int) bool {
-	if x < 0 || y < 0 || x >= maskSize || y >= maskSize {
-		return true
-	}
-	return false
 }
 
 // Hash calculates a slice of average color values of an image at the position
@@ -131,14 +116,22 @@ func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 		return false
 	}
 
-	// Filter 2. Color distance threshold to exit early on obvious outliers.
+	// Filter 2a. Color distance threshold.
+	var diff, sumDiffs float64
 	for i := 0; i < len(hA); i++ {
-		if math.Abs(float64(hA[i])-float64(hB[i])) > distanceThreshold {
+		diff = math.Abs(float64(hA[i]) - float64(hB[i]))
+		if diff > distanceThreshold {
 			return false
 		}
+		sumDiffs += diff
 	}
 
-	// Filter 3. Cosine similarity threshold.
+	// Filter 2b. Cumulative color distance threshold with a coefficient.
+	if sumDiffs*totalDistanceCoeff > float64(len(hA))*distanceThreshold {
+		return false
+	}
+
+	// Filter 3a. Cosine similarity threshold.
 	var dotProduct, sumSqA, sumSqB float32
 	for i := 0; i < len(hA); i++ {
 		dotProduct += hA[i] * hB[i]
@@ -149,5 +142,66 @@ func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 		return false
 	}
 
+	// Filter 3b. Cosine similarity threshold with normalized histogram.
+	hA, hB = normalize(hA), normalize(hB)
+	dotProduct, sumSqA, sumSqB = 0, 0, 0
+	for i := 0; i < len(hA); i++ {
+		dotProduct += hA[i] * hB[i]
+		sumSqA += hA[i] * hA[i]
+		sumSqB += hB[i] * hB[i]
+	}
+	if dotProduct*dotProduct < cosineSimilarity2*sumSqA*sumSqB {
+		return false
+	}
+
 	return true
+}
+
+// normalize stretches histograms for the 3 channels of the hashes, so that
+// minimum and maximum values of each are 0 and 255 correspondingly.
+func normalize(h []float32) []float32 {
+	normalized := make([]float32, len(h))
+	var rMin, gMin, bMin, rMax, gMax, bMax float32
+	rMin, gMin, bMin = 256, 256, 256
+	rMax, gMax, bMax = 0, 0, 0
+	// Looking for extreme values.
+	for n := 0; n < len(h); n += 3 {
+		if h[n] > rMax {
+			rMax = h[n]
+		}
+		if h[n] < rMin {
+			rMin = h[n]
+		}
+	}
+	for n := 1; n < len(h); n += 3 {
+		if h[n] > gMax {
+			gMax = h[n]
+		}
+		if h[n] < gMin {
+			gMin = h[n]
+		}
+	}
+	for n := 2; n < len(h); n += 3 {
+		if h[n] > bMax {
+			bMax = h[n]
+		}
+		if h[n] < bMin {
+			bMin = h[n]
+		}
+	}
+	// Normalization.
+	rMM := rMax - rMin
+	gMM := gMax - gMin
+	bMM := bMax - bMin
+	for n := 0; n < len(h); n += 3 {
+		normalized[n] = (h[n] - rMin) * 255 / rMM
+	}
+	for n := 1; n < len(h); n += 3 {
+		normalized[n] = (h[n] - gMin) * 255 / gMM
+	}
+	for n := 2; n < len(h); n += 3 {
+		normalized[n] = (h[n] - bMin) * 255 / bMM
+	}
+
+	return normalized
 }

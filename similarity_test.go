@@ -22,11 +22,6 @@ func TestMasks(t *testing.T) {
 			t.Errorf("Number of mask white pixels %d is more than 3*3.",
 				len(masks[i]))
 		}
-		if len(masks[i]) != numAggregationPixels+1 {
-			t.Errorf(
-				"Number of mask white pixels %d is not equal to expected %d.",
-				len(masks[i]), numAggregationPixels+1)
-		}
 	}
 }
 
