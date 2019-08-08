@@ -2,7 +2,7 @@
 
 <img align="right" style="margin-left:18px" src="logo.gif">
 
-Demo: [similar image search](https://www.similar.pictures) (JavaScript version of this Go algorithm).
+Demo: [similar image search](https://similar.pictures) (JavaScript version of this Go algorithm).
 
 The library compares images by perceptual similarity to find near duplicates and
 resized images. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
@@ -50,7 +50,7 @@ func main() {
 
 ## Algorithm for image comparison
 
-[Detailed explanation with illustrations](https://www.similar.pictures/algorithm-for-perceptual-image-comparison.html).
+[Detailed explanation with illustrations](https://similar.pictures/algorithm-for-perceptual-image-comparison.html).
 
 Summary: In the algorithm images are resized to small squares of fixed size.
 A number of masks representing several sample pixels are run against the resized
