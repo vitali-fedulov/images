@@ -2,7 +2,7 @@
 
 <img align="right" style="margin-left:18px" src="logo.gif">
 
-Demo: [similar image search and clustering](https://similar.pictures) (deployed from [here](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
+Demo: [similar image search and clustering](https://similar.pictures) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
 The library compares images by perceptual similarity to find near duplicates and
 resized images. There are no dependencies (only the Golang standard library is used). Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
