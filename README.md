@@ -11,6 +11,12 @@ resized images. There are no dependencies (only the Golang standard library is u
 
 Documentation: [godoc](https://godoc.org/github.com/vitali-fedulov/images).
 
+## UPDATE (November 2019)
+
+The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument, instead of two.
+
+The comparison algorithm has been improved with ~15% additional matches and better quality.
+
 ## Example of comparing 2 photos
 ```go
 package main
@@ -22,7 +28,7 @@ import (
 
 func main() {
 	
-	// Open and decode photos.
+	// Open photos.
 	imgA, err := images.Open("photoA.jpg")
 	if err != nil {
 		panic(err)
@@ -32,15 +38,12 @@ func main() {
 		panic(err)
 	}
 	
-	// Define masks.
-	masks := images.Masks()
-	
-	// Calculate hashes.
-	hA, imgSizeA := images.Hash(imgA, masks)
-	hB, imgSizeB := images.Hash(imgB, masks)
+	// Calculate hashes and image sizes.
+	hashA, imgSizeA := images.Hash(imgA)
+	hashB, imgSizeB := images.Hash(imgB)
 	
 	// Image comparison.
-	if images.Similar(hA, hB, imgSizeA, imgSizeB) {
+	if images.Similar(hashA, hashB, imgSizeA, imgSizeB) {
 		fmt.Println("Images are similar.")
 	} else {
 		fmt.Println("Images are distinct.")
