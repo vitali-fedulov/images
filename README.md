@@ -11,7 +11,7 @@ resized images. There are no dependencies (only the Golang standard library is u
 
 Documentation: [godoc](https://godoc.org/github.com/vitali-fedulov/images).
 
-## UPDATE (November 2019)
+## UPDATE (18 November 2019)
 
 The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument instead of two.
 
