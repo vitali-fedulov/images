@@ -10,17 +10,17 @@ import (
 )
 
 func TestMasks(t *testing.T) {
-	masks := Masks()
+	ms := masks()
 	numMasks := (maskSize - 2) * (maskSize - 2)
-	expectedNumMasks := len(masks)
-	if len(masks) != numMasks {
+	expectedNumMasks := len(ms)
+	if len(ms) != numMasks {
 		t.Errorf("Number of masks %d does not match expected value %d.",
 			numMasks, expectedNumMasks)
 	}
-	for i := range masks {
-		if len(masks[i]) > 3*3 {
+	for i := range ms {
+		if len(ms[i]) > 3*3 {
 			t.Errorf("Number of mask white pixels %d is more than 3*3.",
-				len(masks[i]))
+				len(ms[i]))
 		}
 	}
 }
@@ -28,19 +28,14 @@ func TestMasks(t *testing.T) {
 func TestHash(t *testing.T) {
 	testDir := "testdata"
 	testFile := "small.jpg"
-	masks := Masks()
 	img, err := Open(path.Join(testDir, testFile))
 	if err != nil {
 		t.Error("Error opening image:", err)
 		return
 	}
-	pSums, imgSize := Hash(img, masks)
-	if len(pSums) == 0 {
-		t.Errorf("Number of pSums %d must not be 0.", len(pSums))
-	}
-	if len(pSums) != len(masks) {
-		t.Errorf("Number of pSums %d is not equal number of masks %d.",
-			len(pSums), len(masks))
+	h, imgSize := Hash(img)
+	if len(h) == 0 {
+		t.Errorf("Number of h %d must not be 0.", len(h))
 	}
 	if imgSize != (image.Point{267, 200}) {
 		t.Errorf(
@@ -48,17 +43,17 @@ func TestHash(t *testing.T) {
 			imgSize, image.Point{267, 200})
 	}
 	var allZeroOrLessCounter int
-	for i := range pSums {
-		if pSums[i] > 255 {
-			t.Errorf("pSums[i] %f is larger than 255.", pSums[i])
+	for i := range h {
+		if h[i] > 255 {
+			t.Errorf("h[i] %f is larger than 255.", h[i])
 			break
 		}
-		if pSums[i] <= 0 {
+		if h[i] <= 0 {
 			allZeroOrLessCounter++
 		}
 	}
-	if allZeroOrLessCounter == len(pSums) {
-		t.Error("All pSums[i] are 0 or less.")
+	if allZeroOrLessCounter == len(h) {
+		t.Error("All h[i] are 0 or less.")
 	}
 }
 
@@ -66,8 +61,7 @@ func TestSimilar(t *testing.T) {
 	testDir := "testdata"
 	imgFiles := []string{
 		"flipped.jpg", "large.jpg", "small.jpg", "distorted.jpg"}
-	masks := Masks()
-	pSumsAll := make([][]float32, len(imgFiles))
+	hashes := make([][]float32, len(imgFiles))
 	imgSizeAll := make([]image.Point, len(imgFiles))
 	for i := range imgFiles {
 		img, err := Open(path.Join(testDir, imgFiles[i]))
@@ -75,17 +69,17 @@ func TestSimilar(t *testing.T) {
 			t.Error("Error opening image:", err)
 			return
 		}
-		pSumsAll[i], imgSizeAll[i] = Hash(img, masks)
+		hashes[i], imgSizeAll[i] = Hash(img)
 	}
-	if !Similar(pSumsAll[1], pSumsAll[2], imgSizeAll[1], imgSizeAll[2]) {
+	if !Similar(hashes[1], hashes[2], imgSizeAll[1], imgSizeAll[2]) {
 		t.Errorf("Expected similarity between %s and %s.",
 			imgFiles[1], imgFiles[2])
 	}
-	if Similar(pSumsAll[1], pSumsAll[0], imgSizeAll[1], imgSizeAll[0]) {
+	if Similar(hashes[1], hashes[0], imgSizeAll[1], imgSizeAll[0]) {
 		t.Errorf("Expected non-similarity between %s and %s.",
 			imgFiles[1], imgFiles[0])
 	}
-	if Similar(pSumsAll[1], pSumsAll[3], imgSizeAll[1], imgSizeAll[3]) {
+	if Similar(hashes[1], hashes[3], imgSizeAll[1], imgSizeAll[3]) {
 		t.Errorf("Expected non-similarity between %s and %s.",
 			imgFiles[1], imgFiles[3])
 	}
