@@ -13,7 +13,7 @@ Documentation: [godoc](https://godoc.org/github.com/vitali-fedulov/images).
 
 ## UPDATE (November 2019)
 
-The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument, instead of two.
+The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument instead of two.
 
 The comparison algorithm has been improved with ~15% additional matches and better quality.
 
