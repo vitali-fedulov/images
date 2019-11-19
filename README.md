@@ -13,9 +13,7 @@ Documentation: [godoc](https://godoc.org/github.com/vitali-fedulov/images).
 
 ## UPDATE (18 November 2019)
 
-The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument instead of two.
-
-The comparison algorithm has been improved with ~15% additional matches and better quality.
+The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument instead of two. The comparison function has been modified as well, but the principle of usage has not changed.
 
 ## Example of comparing 2 photos
 ```go
