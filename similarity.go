@@ -35,9 +35,7 @@ const (
 // Conceptually a mask is a black square image with few white pixels used for
 // average color calculation. In the function output a mask is a map with keys
 // corresponding to white pixel coordinates only, because black pixels are
-// redundant.
-// In this particular implementation white pixels form square 3x3 regions (thus
-// de-facto a median filter is applied to the resampled image).
+// redundant. In this particular implementation white pixels form 3x3 squares.
 func masks() []map[image.Point]bool {
 	ms := make([]map[image.Point]bool, 0)
 	for x := 1; x < maskSize-1; x++ {
