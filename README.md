@@ -1,7 +1,5 @@
 # Comparing images in Go
 
-<img align="right" style="margin-left:18px" src="logo.gif">
-
 Demo: [similar image search and clustering](https://similar.pictures) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
 The library compares images by perceptual similarity to find near duplicates and
