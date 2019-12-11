@@ -8,10 +8,6 @@ Near duplicates and resized images can be found with the package. There are no d
 
 Documentation: [godoc](https://godoc.org/github.com/vitali-fedulov/images).
 
-## UPDATE (18 November 2019)
-
-The code has been simplified so that masks do not need to be calculated in a separate line (see the updated example below). As a result the Hash function only needs one argument instead of two. The comparison function is used as before, but the internal algorithm has changed.
-
 ## Example of comparing 2 photos
 ```go
 package main
