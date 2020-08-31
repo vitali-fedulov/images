@@ -131,15 +131,6 @@ func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 		return false
 	}
 
-	// Filter 2b. Euclidean distance with normalized histogram.
-	sum = 0.0
-	hA, hB = normalize(hA), normalize(hB)
-	for i := 0; i < numMasks; i++ {
-		sum += (hA[i] - hB[i]) * (hA[i] - hB[i])
-	}
-	if sum > euclDist2 {
-		return false
-	}
 
 	// Filter 3. Pixel brightness sign correlation test.
 	sum = 0.0
@@ -153,6 +144,18 @@ func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 	if sum < float32(numMasks)*corrCoeff {
 		return false
 	}
+
+
+	// Filter 2b. Euclidean distance with normalized histogram.
+	sum = 0.0
+	hA, hB = normalize(hA), normalize(hB)
+	for i := 0; i < numMasks; i++ {
+		sum += (hA[i] - hB[i]) * (hA[i] - hB[i])
+	}
+	if sum > euclDist2 {
+		return false
+	}
+
 	return true
 }
 
