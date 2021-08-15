@@ -14,7 +14,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/vitali-fedulov/images"
+	"github.com/vitali-fedulov/images/v2"
 )
 
 func main() {
