@@ -14,6 +14,8 @@ package main
 
 import (
 	"fmt"
+
+	// Notice v2, which is module-based most recent version.
 	"github.com/vitali-fedulov/images/v2"
 )
 
