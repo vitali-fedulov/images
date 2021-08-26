@@ -15,7 +15,7 @@ To test this example you first need to create a go file with the code below.
 Then, since the latest version (v2) uses modules, you will have to initialize modules by typing from command line:
 `go mod init your_module_name`. Here `your_module_name` can be anything for testing purposes.
 
-Then get the necessary images module: `go get github.com/vitali-fedulov/images/v2`
+Then download the required import: `go get github.com/vitali-fedulov/images/v2`
 
 ```go
 package main
