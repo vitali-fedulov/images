@@ -10,12 +10,15 @@ Documentation: [godoc](https://pkg.go.dev/github.com/vitali-fedulov/images/v2).
 
 ## Example of comparing 2 photos
 
-To test this example you first need to create a go file with the code below.
+To test this example Go-file, since the latest version (v2) uses modules, you need to initialize them with a command:
 
-Then, since the latest version (v2) uses modules, you will have to initialize modules by typing from command line:
-`go mod init foo`. Here `foo` can be anything for testing purposes.
+`go mod init foo`
 
-Then download the required import: `go get github.com/vitali-fedulov/images/v2`
+Here `foo` can be anything for testing purposes. Then get the required import:
+
+`go get github.com/vitali-fedulov/images/v2`.
+
+Now you are ready to run or build the example.
 
 ```go
 package main
