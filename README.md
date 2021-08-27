@@ -10,13 +10,13 @@ Documentation: [godoc](https://pkg.go.dev/github.com/vitali-fedulov/images/v2).
 
 ## Example of comparing 2 photos
 
-To test this example Go-file, since the latest version (v2) uses modules, you need to initialize them with a command:
+To test this example go-file, you need to initialize modules from command line, because the latest version (v2) uses them:
 
 `go mod init foo`
 
 Here `foo` can be anything for testing purposes. Then get the required import:
 
-`go get github.com/vitali-fedulov/images/v2`.
+`go get github.com/vitali-fedulov/images/v2`
 
 Now you are ready to run or build the example.
 
