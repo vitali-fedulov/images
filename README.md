@@ -27,6 +27,7 @@ import (
 	"fmt"
 
 	// Notice v2, which is module-based most recent version.
+	// Explanation: https://go.dev/blog/v2-go-modules
 	"github.com/vitali-fedulov/images/v2"
 )
 
