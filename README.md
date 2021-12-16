@@ -65,7 +65,3 @@ A number of masks representing several sample pixels are run against the resized
 images to calculate average color values. Then the values are compared to
 give the similarity verdict. Also image proportions are used to avoid matching
 images of distinct shape.
-
-## Interesting open source libraries
-
-https://github.com/milvus-io
