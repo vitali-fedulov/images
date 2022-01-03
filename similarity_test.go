@@ -84,3 +84,87 @@ func TestSimilar(t *testing.T) {
 			imgFiles[1], imgFiles[3])
 	}
 }
+
+func testProportions(fA, fB string, isSimilar bool,
+	t *testing.T) {
+	p := path.Join("testdata", "proportions")
+	imgA, err := Open(path.Join(p, fA))
+	if err != nil {
+		t.Error("Error opening image:", err)
+	}
+	imgB, err := Open(path.Join(p, fB))
+	if err != nil {
+		t.Error("Error opening image:", err)
+	}
+
+	hA, sA := Hash(imgA)
+	hB, sB := Hash(imgB)
+
+	if isSimilar == true {
+		if !Similar(hA, hB, sA, sB) {
+			t.Errorf("Expecting similarity of %v to %v.", fA, fB)
+		}
+	}
+	if isSimilar == false {
+		if Similar(hA, hB, sA, sB) {
+			t.Errorf("Expecting non-similarity of %v to %v.", fA, fB)
+		}
+	}
+}
+
+func TestSimilarByProportions(t *testing.T) {
+	testProportions("100x130.png", "100x124.png", true, t)
+	testProportions("100x130.png", "100x122.png", true, t)
+	testProportions("130x100.png", "260x200.png", true, t)
+	testProportions("200x200.png", "260x200.png", false, t)
+	testProportions("130x100.png", "124x100.png", true, t)
+	testProportions("130x100.png", "122x100.png", true, t)
+	testProportions("130x100.png", "130x100.png", true, t)
+	testProportions("100x130.png", "130x100.png", false, t)
+	testProportions("124x100.png", "260x200.png", true, t)
+	testProportions("122x100.png", "260x200.png", true, t)
+	testProportions("100x124.png", "100x130.png", true, t)
+}
+
+func TestSimilarCustom(t *testing.T) {
+	testDir := "testdata"
+	imgFiles := []string{
+		"flipped.jpg", "large.jpg", "small.jpg", "distorted.jpg"}
+	hashes := make([][]float32, len(imgFiles))
+	imgSizeAll := make([]image.Point, len(imgFiles))
+	for i := range imgFiles {
+		img, err := Open(path.Join(testDir, imgFiles[i]))
+		if err != nil {
+			t.Error("Error opening image:", err)
+			return
+		}
+		hashes[i], imgSizeAll[i] = Hash(img)
+	}
+
+	delta, euc, eucNorm, corr := SimilarCustom(
+		hashes[1], hashes[2], imgSizeAll[1], imgSizeAll[2])
+
+	// Expected similarity.
+	if delta > 0.1 || euc > 242000 || eucNorm > 242000 || corr < 340 {
+		t.Errorf("Expected delta, euc, eucNorm, corr got %v, %v, %v, %v",
+			delta, euc, eucNorm, corr)
+	}
+
+	delta, euc, eucNorm, corr = SimilarCustom(
+		hashes[1], hashes[0], imgSizeAll[1], imgSizeAll[0])
+
+	// Expected non-similarity.
+	if !(delta > 0.1 || euc > 242000 || eucNorm > 242000 || corr < 340) {
+		t.Errorf("Expected delta, euc, eucNorm, corr got %v, %v, %v, %v",
+			delta, euc, eucNorm, corr)
+	}
+
+	delta, euc, eucNorm, corr = SimilarCustom(
+		hashes[1], hashes[3], imgSizeAll[1], imgSizeAll[3])
+
+	// Expected non-similarity.
+	if !(delta > 0.1 || euc > 242000 || eucNorm > 242000 || corr < 340) {
+		t.Errorf("Expected delta, euc, eucNorm, corr got %v, %v, %v, %v",
+			delta, euc, eucNorm, corr)
+	}
+}

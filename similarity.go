@@ -23,12 +23,8 @@ const (
 	// Cutoff coefficient for color sign correlation.
 	corrCoeff = 0.7
 
-	// Geometric similarity parameters.
-
-	// Image width base scale for image proportions filter.
-	baseWidth = 100
-	// Threshold of height pixels for images rescaled to baseWidth.
-	heightThreshold = 10
+	// Size similarity parameter.
+	sizeThreshold = 0.1
 )
 
 // Masks generates masks, each of which will be used to calculate an image hash.
@@ -113,12 +109,29 @@ var euclDist2 = float32(numMasks) * float32(colorDiff*colorDiff) * euclCoeff
 // sizes. The input parameters are generated with the Hash function.
 func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 
-	// Filter 1. Threshold for mismatching image proportions. Based on rescaling
-	// all images to same baseWidth and cutoff at heightThreshold.
-	xA, yA := imgSizeA.X, imgSizeA.Y
-	xB, yB := imgSizeB.X, imgSizeB.Y
-	if xA*yB*baseWidth+heightThreshold*xA*xB < xB*yA*baseWidth ||
-		xA*yB*baseWidth > xB*yA*baseWidth+heightThreshold*xA*xB {
+	// Filter 1 based on rescaling a narrower side of images to 1,
+	// then cutting off at sizeThreshold of a longer image vs shorter image.
+	xA, yA := float32(imgSizeA.X), float32(imgSizeA.Y)
+	xB, yB := float32(imgSizeB.X), float32(imgSizeB.Y)
+	var delta float32
+	if xA <= yA { // x to 1.
+		yA = yA / xA
+		yB = yB / xB
+		if yA > yB {
+			delta = (yA - yB) / yA
+		} else {
+			delta = (yB - yA) / yB
+		}
+	} else { // y to 1.
+		xA = xA / yA
+		xB = xB / yB
+		if xA > xB {
+			delta = (xA - xB) / xA
+		} else {
+			delta = (xB - xA) / xB
+		}
+	}
+	if delta > sizeThreshold {
 		return false
 	}
 
@@ -130,7 +143,6 @@ func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 	if sum > euclDist2 {
 		return false
 	}
-
 
 	// Filter 3. Pixel brightness sign correlation test.
 	sum = 0.0
@@ -144,7 +156,6 @@ func Similar(hA, hB []float32, imgSizeA, imgSizeB image.Point) bool {
 	if sum < float32(numMasks)*corrCoeff {
 		return false
 	}
-
 
 	// Filter 2b. Euclidean distance with normalized histogram.
 	sum = 0.0
@@ -206,4 +217,68 @@ func normalize(h []float32) []float32 {
 	}
 
 	return normalized
+}
+
+// SimilarCustom function returns similarity metrics instead of
+// returning a verdict as the function Similar does. Then you can
+// decide on your own which thresholds to use for each filter,
+// or filter/rank by combining the values.
+// delta is image proportions metric (sizeThreshold in func Similar).
+// The larger the delta the more distinct are images by their
+// proportions.
+// euc is Euclidean metric. The larger euc is the more distinct
+// are images visually.
+// eucNorm is Euclidean metric for normalized hash values
+// (visially similar to autolevels in graphic editors).
+// The larger eucNorm is the more distinct are images visually after
+// autolevelling (normalization).
+// corr is sign correlation of color values. The larger the value
+// the more similar are images (correlate more to each other).
+// Demo returned values are used in TestSimilarCustom function.
+func SimilarCustom(hA, hB []float32, imgSizeA, imgSizeB image.Point) (
+	delta, euc, eucNorm, corr float32) {
+
+	// Filter 1 based on rescaling a narrower side of images to 1,
+	// then cutting off at sizeThreshold of a longer image vs shorter image.
+	xA, yA := float32(imgSizeA.X), float32(imgSizeA.Y)
+	xB, yB := float32(imgSizeB.X), float32(imgSizeB.Y)
+	if xA <= yA { // x to 1.
+		yA = yA / xA
+		yB = yB / xB
+		if yA > yB {
+			delta = (yA - yB) / yA
+		} else {
+			delta = (yB - yA) / yB
+		}
+	} else { // y to 1.
+		xA = xA / yA
+		xB = xB / yB
+		if xA > xB {
+			delta = (xA - xB) / xA
+		} else {
+			delta = (xB - xA) / xB
+		}
+	}
+
+	// Filter 2a. Euclidean distance.
+	for i := 0; i < numMasks; i++ {
+		euc += (hA[i] - hB[i]) * (hA[i] - hB[i])
+	}
+
+	// Filter 2b. Euclidean distance with normalized histogram.
+	hA, hB = normalize(hA), normalize(hB)
+	for i := 0; i < numMasks; i++ {
+		eucNorm += (hA[i] - hB[i]) * (hA[i] - hB[i])
+	}
+
+	// Filter 3. Pixel brightness sign correlation test.
+	for i := 0; i < numMasks-1; i++ {
+		if (hA[i] < hA[i+1]) && (hB[i] < hB[i+1]) ||
+			(hA[i] == hA[i+1]) && (hB[i] == hB[i+1]) ||
+			(hA[i] > hA[i+1]) && (hB[i] > hB[i+1]) {
+			corr++
+		}
+	}
+
+	return delta, euc, eucNorm, corr
 }
