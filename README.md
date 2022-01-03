@@ -6,6 +6,8 @@ Near duplicates and resized images can be found with the package. There are no d
 
 `Similar` function gives a verdict whether 2 images are similar or not. The library also contains wrapper functions to open/save images and basic image resampling/resizing.
 
+`SimilarCustom` function allows your own similarity metrics.
+
 Documentation: [godoc](https://pkg.go.dev/github.com/vitali-fedulov/images/v2).
 
 ## Example of comparing 2 photos
