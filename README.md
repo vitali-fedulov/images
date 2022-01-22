@@ -6,8 +6,9 @@ The most important differences vs this module:
 
 1. Hashes get proper "hashy" meaning. If you work with millions of images, now it is possible to perform preliminary image comparison using hash tables (see the second example in README of images3).
 2. Renamed functions. For example what used to be `Hash` now becomes `Icon` to reflect (1).
+3. Old hashes are incompatible with new icons for image comparison.
 
-From now on the module "images" is retired (22 January 2022). It will continue working, but for all new code it is better to use [images3](https://github.com/vitali-fedulov/images3).
+From now on the module "images" is retired (22 January 2022). It will continue working, but for new projects it is better to use [images3](https://github.com/vitali-fedulov/images3).
 
 # (Legacy) info about this module
 
