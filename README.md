@@ -1,14 +1,13 @@
 # Comparing images in Go (legacy repo) &#10132; [NEW repo](https://github.com/vitali-fedulov/images3)
 
-**IMPORTANT** The latest version is **[images3](https://github.com/vitali-fedulov/images3)**. It is a new major release placed in a separate repo.
+**IMPORTANT** This repo (images) is retired from January 2022, but it will continue working. Use [images3](https://github.com/vitali-fedulov/images3) for new projects.
 
-What's new:
+What's new in images3:
 
 1. Hashes get proper "hashy" meaning. If you work with millions of images, now it is possible to perform preliminary image comparison using hash tables (see the second example in README of images3).
 2. Renamed functions. For example what used to be `Hash` now becomes `Icon` to reflect (1).
 3. Old hashes are incompatible with new icons for image comparison.
 
-This module ("images") is retired from 22 January 2022. It will continue working, but for new projects it is better to use [images3](https://github.com/vitali-fedulov/images3).
 
 # About this module
 
