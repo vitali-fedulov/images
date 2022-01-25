@@ -10,7 +10,7 @@ What's new:
 
 This module ("images") is retired from 22 January 2022. It will continue working, but for new projects it is better to use [images3](https://github.com/vitali-fedulov/images3).
 
-# (Legacy) info about this module
+# About this module
 
 Near duplicates and resized images can be found with the module. There are no dependencies: only the Golang standard library is used. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
 
