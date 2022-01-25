@@ -1,4 +1,4 @@
-# Comparing images in Go (legacy repo) > [NEW repo](https://github.com/vitali-fedulov/images3)
+# Comparing images in Go (legacy repo) --> [NEW repo](https://github.com/vitali-fedulov/images3)
 
 **IMPORTANT** The latest version is **[images3](https://github.com/vitali-fedulov/images3)**. It is a new major release placed in a separate repo.
 
