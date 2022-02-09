@@ -2,7 +2,7 @@
 
 **IMPORTANT** This repo (images) is retired from January 2022, but it will continue working. Use [images3](https://github.com/vitali-fedulov/images3) for new projects.
 
-What's new in images3:
+Changes in the NEW repo vs this one:
 
 1. Hashes get proper "hashy" meaning. If you work with millions of images, now it is possible to perform preliminary image comparison using hash tables (see the second example in README of images3).
 2. Renamed functions. For example what used to be `Hash` now becomes `Icon` to reflect (1).
@@ -71,7 +71,7 @@ func main() {
 
 ## Algorithm for image comparison
 
-[Detailed explanation with illustrations](https://vitali-fedulov.github.io/algorithm-for-perceptual-image-comparison.html).
+[Detailed explanation](https://vitali-fedulov.github.io/algorithm-for-perceptual-image-comparison.html), also as a [PDF](https://github.com/vitali-fedulov/research/blob/main/Algorithm%20for%20perceptual%20image%20comparison%20OLD.pdf).
 
 Summary: In the algorithm images are resized to small squares of fixed size.
 A number of masks representing several sample pixels are run against the resized
