@@ -4,8 +4,8 @@ This repo is retired (January 2022), but will continue working. Try [images3](ht
 
 Changes in the NEW repo vs this one:
 
-1. Hashes get proper "hashy" meaning. If you work with millions of images, now it is possible to perform preliminary image comparison using hash tables (see the second example in README of images3).
-2. Renamed functions. For example what used to be `Hash` now becomes `Icon` to reflect (1).
+1. Hashes get proper "hashy" meaning. If you work with millions of images, do preliminary image comparison with hash tables.
+2. Renamed functions. What used to be `Hash` now becomes `Icon` to reflect (1).
 3. Old hashes are incompatible with new icons for image comparison.
 
 
