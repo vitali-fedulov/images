@@ -9,7 +9,7 @@ Changes in the NEW repo vs this one:
 3. Old hashes are incompatible with new icons for image comparison.
 
 
-# About this module
+# About
 
 Near duplicates and resized images can be found with the module. There are no dependencies: only the Golang standard library is used. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
 
