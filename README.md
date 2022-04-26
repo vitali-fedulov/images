@@ -1,6 +1,6 @@
 # Comparing images in Go (legacy repo) &#10132; [NEW repo](https://github.com/vitali-fedulov/images3)
 
-This repo is retired (January 2022), but will continue working. Use [images3](https://github.com/vitali-fedulov/images3) for new projects.
+This repo is retired (January 2022), but will continue working. Try [images3](https://github.com/vitali-fedulov/images3) for new projects.
 
 Changes in the NEW repo vs this one:
 
