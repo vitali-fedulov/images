@@ -1,6 +1,8 @@
-# Comparing images in Go (legacy repo) &#10132; [NEW repo](https://github.com/vitali-fedulov/images3)
+# Comparing images in Go &#10132; [NEW repo](https://github.com/vitali-fedulov/images3)
 
-This repo is retired (January 2022), but will continue working. Try latest major version [images3](https://github.com/vitali-fedulov/images3) for new projects.
+Near duplicates and resized images can be found with the module.
+
+You can use this popular legacy repo, or try [NEW](https://github.com/vitali-fedulov/images3), which contains the latest major version.
 
 Changes in the NEW repo vs this one:
 
@@ -9,7 +11,7 @@ Changes in the NEW repo vs this one:
 
 # About
 
-Near duplicates and resized images can be found with the module. There are no dependencies: only the Golang standard library is used. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
+There are no dependencies: only the Golang standard library is used. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
 
 Demo: [similar image search and clustering](https://similar.pictures) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
