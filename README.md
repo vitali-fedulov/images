@@ -2,7 +2,9 @@
 
 Near duplicates and resized images can be found with the module.
 
-You can use this popular legacy repo, or try [NEW](https://github.com/vitali-fedulov/images3), which contains the latest major version.
+**Demo**: [similar image clustering](https://similar.pictures) based on the algorithm.
+
+Use this popular legacy repo, or try recommended [NEW](https://github.com/vitali-fedulov/images3) latest stable major version, placed in a separate repository.
 
 Changes in the NEW repo vs this one:
 
