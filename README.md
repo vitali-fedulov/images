@@ -1,12 +1,12 @@
-# Comparing images in Go &#10132; [NEW repo](https://github.com/vitali-fedulov/images3)
+# Comparing images in Go &#10132; [LATEST version](https://github.com/vitali-fedulov/images3)
 
 Near duplicates and resized images can be found with the module.
 
-**Demo**: [similar image clustering](https://similar.pictures) based on the algorithm.
+**Demo**: [similar image search and clustering](https://similar.pictures) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
-Use this popular legacy repo, or try recommended [NEW](https://github.com/vitali-fedulov/images3) latest stable major version, placed in a separate repository.
+Use this popular legacy repo, or try recommended [latest major version in a new repository](https://github.com/vitali-fedulov/images3).
 
-Changes in the NEW repo vs this one:
+Changes in the new repo vs this one:
 
 1. Hashes get proper "hashy" meaning. If you work with millions of images, do preliminary image comparison with hash tables.
 2. Renamed functions. What used to be `Hash` now becomes `Icon` to reflect (1).
@@ -14,8 +14,6 @@ Changes in the NEW repo vs this one:
 # About this repo
 
 There are no dependencies: only the Golang standard library is used. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
-
-Demo: [similar image search and clustering](https://similar.pictures) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
 `Similar` function gives a verdict whether 2 images are similar or not. The library also contains wrapper functions to open/save images and basic image resampling/resizing.
 
