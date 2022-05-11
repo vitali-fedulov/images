@@ -71,7 +71,7 @@ func main() {
 
 ## Algorithm for image comparison
 
-[Detailed explanation](https://vitali-fedulov.github.io/algorithm-for-perceptual-image-comparison.html), also as a [PDF](https://github.com/vitali-fedulov/research/blob/main/Algorithm%20for%20perceptual%20image%20comparison%20OLD.pdf).
+[Detailed explanation](https://vitali-fedulov.github.io/similar.pictures/algorithm-for-perceptual-image-comparison.html), also as a [PDF](https://github.com/vitali-fedulov/research/blob/main/Algorithm%20for%20perceptual%20image%20comparison%20OLD.pdf).
 
 Summary: In the algorithm images are resized to small squares of fixed size.
 A number of masks representing several sample pixels are run against the resized
