@@ -6,11 +6,6 @@ Near duplicates and resized images can be found with the module.
 
 Use this popular legacy repo, or try recommended [latest major version in a new repository](https://github.com/vitali-fedulov/images4).
 
-Changes in the new repo vs this one:
-
-1. Hashes get proper "hashy" meaning. If you work with millions of images, do preliminary image comparison with hash tables.
-2. Renamed functions. What used to be `Hash` now becomes `Icon` to reflect (1).
-
 # About this repo
 
 There are no dependencies: only the Golang standard library is used. Supported image types: GIF, JPEG and PNG (golang.org/pkg/image/ as in October 2018).
