@@ -4,7 +4,7 @@ Near duplicates and resized images can be found with the module.
 
 **Demo**: [similar image search and clustering](https://vitali-fedulov.github.io/similar.pictures/) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
-Use this popular legacy repo, or try recommended [latest major version in a new repository](https://github.com/vitali-fedulov/images4).
+**Versions**: This is the oldest version. Try latest recommended [4th major version](https://github.com/vitali-fedulov/images4).
 
 # About this repo
 
