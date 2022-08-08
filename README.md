@@ -1,10 +1,10 @@
-# Comparing images in Go &#10132; [LATEST version](https://github.com/vitali-fedulov/images3)
+# Comparing images in Go &#10132; [LATEST version](https://github.com/vitali-fedulov/images4)
 
 Near duplicates and resized images can be found with the module.
 
 **Demo**: [similar image search and clustering](https://vitali-fedulov.github.io/similar.pictures/) (deployed [from](https://github.com/vitali-fedulov/vitali-fedulov.github.io)).
 
-Use this popular legacy repo, or try recommended [latest major version in a new repository](https://github.com/vitali-fedulov/images3).
+Use this popular legacy repo, or try recommended [latest major version in a new repository](https://github.com/vitali-fedulov/images4).
 
 Changes in the new repo vs this one:
 
