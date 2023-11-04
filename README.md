@@ -23,7 +23,7 @@ Documentation: [godoc](https://pkg.go.dev/github.com/vitali-fedulov/images/v2).
 
 ## Example of comparing 2 photos
 
-To test this example go-file, you need to initialize modules from command line, because the latest version (v2) uses them:
+To test this example go-file, you need to initialize modules from command line, because v2 uses them:
 
 `go mod init foo`
 
@@ -39,9 +39,11 @@ package main
 import (
 	"fmt"
 
-	// Notice v2, which is module-based most recent version.
-	// Explanation: https://go.dev/blog/v2-go-modules
+	// v2 is module-based. v1 is not.
 	"github.com/vitali-fedulov/images/v2"
+
+	// Golang explanation on module versions:
+	// https://go.dev/blog/v2-go-modules
 )
 
 func main() {
